@@ -14,3 +14,6 @@ hs_err_pid*
 # IntelliJ IDEA project files
 *.iml
 .idea/
+
+# Ignore Mac OS X only files
+.DS_Store
