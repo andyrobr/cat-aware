@@ -1,6 +1,6 @@
 package ml;
 
-import weka.classifiers.functions.MultilayerPerceptron;
+import ml.classifiers.functions.MultilayerPerceptron;
 import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -67,6 +67,8 @@ public class App
         mp.setHiddenLayers("4");
         mp.buildClassifier(trainingData);
 
+        System.out.println(mp.getCapabilities());
+
         // Go through each of the samples in the testing set and run them through
         // the model built by Weka.
         for (int i = 0; i < testingData.numInstances(); i++)
@@ -83,19 +85,9 @@ public class App
             // the probability for each node in the output layer given the instance.
             // (Recall we have three nodes in the output layer, one for each class).
             System.out.println(". Distribution: " +
-                    joinDoubles(mp.distributionForInstance(testingData.instance(i))));
-        }
-    }
-
-    public static String joinDoubles(double[] doubles)
-    {
-        StringBuilder buffer = new StringBuilder();
-
-        for (double d : doubles)
-        {
-            buffer.append(d).append(' ');
+                    ArrayUtils.joinDoubles(mp.distributionForInstance(testingData.instance(i))));
         }
 
-        return buffer.toString();
+        System.out.println(mp.toString());
     }
 }
