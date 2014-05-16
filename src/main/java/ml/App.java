@@ -1,6 +1,7 @@
 package ml;
 
-import ml.classifiers.functions.MultilayerPerceptron;
+import ml.classifiers.functions.MultilayerPerceptronImpl;
+import weka.classifiers.functions.neural.NeuralNode;
 import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -18,7 +19,7 @@ public class App
         Instances trainingData = new Instances(
                 new BufferedReader(
                         new FileReader(
-                                "test_data/stock_training_data.arff"
+                                "test_data/unclassified.arff"
                         )
                 )
         );
@@ -30,7 +31,7 @@ public class App
         Instances testingData = new Instances(
                 new BufferedReader(
                         new FileReader(
-                                "test_data/stock_testing_data.arff"
+                                "test_data/faces.arff"
                         )
                 )
         );
@@ -62,12 +63,10 @@ public class App
 
         // Weka builds the neural network for us, all we need to specify is the number
         // of nodes in the hidden layer and the input data.
-        MultilayerPerceptron mp = new MultilayerPerceptron();
+        MultilayerPerceptronImpl mp = new MultilayerPerceptronImpl();
 
         mp.setHiddenLayers("4");
         mp.buildClassifier(trainingData);
-
-        System.out.println(mp.getCapabilities());
 
         // Go through each of the samples in the testing set and run them through
         // the model built by Weka.
@@ -88,6 +87,30 @@ public class App
                     ArrayUtils.joinDoubles(mp.distributionForInstance(testingData.instance(i))));
         }
 
-        System.out.println(mp.toString());
+        // Go through each of the nodes in the hidden layer...
+        for (NeuralNode node : mp.getHiddenNodes())
+        {
+            System.out.println("ID: " + node.getId());
+
+            System.out.println("Number of inputs: " + node.getNumInputs());
+            System.out.println("Number of outputs: " + node.getNumOutputs());
+
+            double[] weights = mp.getInputWeights(node);
+
+            System.out.println("Number of weights: " + weights.length);
+        }
+
+        // ...and output layer.
+        for (NeuralNode node : mp.getOutputNodes())
+        {
+            System.out.println("ID: " + node.getId());
+
+            System.out.println("Number of inputs: " + node.getNumInputs());
+            System.out.println("Number of outputs: " + node.getNumOutputs());
+
+            double[] weights = mp.getInputWeights(node);
+
+            System.out.println("Number of weights: " + weights.length);
+        }
     }
 }

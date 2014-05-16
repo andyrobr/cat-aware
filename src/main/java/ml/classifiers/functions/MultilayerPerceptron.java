@@ -169,7 +169,7 @@ public class MultilayerPerceptron
      * only suitable to go on the attribute side or class side of the network
      * and not both.
      */
-    protected class NeuralEnd
+    public class NeuralEnd
             extends NeuralConnection {
 
         /** for serialization */
@@ -916,13 +916,13 @@ public class MultilayerPerceptron
     private double[] m_attributeBases;
 
     /** The output units.(only feeds the errors, does no calcs) */
-    private NeuralEnd[] m_outputs;
+    protected NeuralEnd[] m_outputs;
 
     /** The input units.(only feeds the inputs does no calcs) */
-    private NeuralEnd[] m_inputs;
+    protected NeuralEnd[] m_inputs;
 
     /** All the nodes that actually comprise the logical neural net. */
-    private NeuralConnection[] m_neuralNodes;
+    protected NeuralConnection[] m_neuralNodes;
 
     /** The number of classes. */
     private int m_numClasses = 0;
