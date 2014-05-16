@@ -60,18 +60,27 @@ public class MultilayerPerceptronImpl extends MultilayerPerceptron
         return nodes;
     }
 
-    public double[] getHiddenOutputs()
+    public double[] getNodeValues(NeuralNode[] nodes)
     {
-        NeuralNode[] nodes = getHiddenNodes();
-        int hiddenCount = nodes.length;
+        int nodeCount = nodes.length;
 
-        double[] outputs = new double[hiddenCount];
+        double[] outputs = new double[nodeCount];
 
-        for (int i = 0; i < hiddenCount; i++) {
+        for (int i = 0; i < nodeCount; i++) {
             // We don't want to recalculate, just give us what is cached.
             outputs[i] = nodes[i].outputValue(false);
         }
 
         return outputs;
+    }
+
+    public double[] getHiddenValues()
+    {
+        return getNodeValues(getHiddenNodes());
+    }
+
+    public double[] getOutputValues()
+    {
+        return getNodeValues(getOutputNodes());
     }
 }
