@@ -1,6 +1,5 @@
 package ml.classifiers.functions;
 
-import weka.classifiers.functions.neural.NeuralConnection;
 import weka.classifiers.functions.neural.NeuralNode;
 
 public class MultilayerPerceptronImpl extends MultilayerPerceptron

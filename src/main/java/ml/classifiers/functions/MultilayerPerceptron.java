@@ -21,7 +21,6 @@ package ml.classifiers.functions;
  *    Copyright (C) 2000 University of Waikato, Hamilton, New Zealand
  */
 
-import ml.ArrayUtils;
 import weka.classifiers.Classifier;
 import weka.classifiers.functions.neural.LinearUnit;
 import weka.classifiers.functions.neural.NeuralConnection;
