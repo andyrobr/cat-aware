@@ -1,5 +1,6 @@
 package ml.classifiers.functions;
 
+import weka.classifiers.functions.neural.NeuralConnection;
 import weka.classifiers.functions.neural.NeuralNode;
 
 public class MultilayerPerceptronImpl extends MultilayerPerceptron
@@ -58,5 +59,20 @@ public class MultilayerPerceptronImpl extends MultilayerPerceptron
         }
 
         return nodes;
+    }
+
+    public double[] getHiddenOutputs()
+    {
+        NeuralNode[] nodes = getHiddenNodes();
+        int hiddenCount = nodes.length;
+
+        double[] outputs = new double[hiddenCount];
+
+        for (int i = 0; i < hiddenCount; i++) {
+            // We don't want to recalculate, just give us what is cached.
+            outputs[i] = nodes[i].outputValue(false);
+        }
+
+        return outputs;
     }
 }

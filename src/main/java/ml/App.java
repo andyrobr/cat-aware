@@ -68,11 +68,19 @@ public class App
         mp.setHiddenLayers("4");
         mp.buildClassifier(trainingData);
 
+        //
+        double[] outputs = mp.getHiddenOutputs();
+
+        System.out.println("Hidden outputs: " + ArrayUtils.joinDoubles(outputs));
+
         // Go through each of the samples in the testing set and run them through
         // the model built by Weka.
         for (int i = 0; i < testingData.numInstances(); i++)
         {
             double pred = mp.classifyInstance(testingData.instance(i));
+
+            outputs = mp.getHiddenOutputs();
+            System.out.println("Hidden outputs: " + ArrayUtils.joinDoubles(outputs));
 
             System.out.print("Given value: " + testingData.classAttribute().
                     value((int) testingData.instance(i).classValue()));
