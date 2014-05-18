@@ -2,6 +2,7 @@ package ml;
 
 import ml.classifiers.functions.MultilayerPerceptronImpl;
 import ml.test.ModelProcessor;
+import ml.test.instance.ConsoleClassificationProcessor;
 import ml.test.instance.InstanceModelProcessor;
 import weka.core.Instances;
 
@@ -11,13 +12,16 @@ import java.io.FileReader;
 public class App
 {
     private static final int HIDDEN_NODE_COUNT = 4;
+    private static final double ACTIVATION_THRESHOLD = 0.5;
 
     public static ModelProcessor[] processors = {
 
             // Andy's model processor.
-            new InstanceModelProcessor()
+            new InstanceModelProcessor(ACTIVATION_THRESHOLD),
 
             // Insert any additional model processors.
+
+            new ConsoleClassificationProcessor()
     };
 
     public static void main( String[] args ) throws Exception
@@ -57,7 +61,7 @@ public class App
         int totalSamples = testingData.numInstances();
 
         // Go through each instance in the testing set and call each of the processors.
-        for (int sampleIndex = 0; sampleIndex < testingData.numInstances(); sampleIndex++)
+        for (int sampleIndex = 0; sampleIndex < totalSamples; sampleIndex++)
         {
             for (ModelProcessor processor : processors)
             {
